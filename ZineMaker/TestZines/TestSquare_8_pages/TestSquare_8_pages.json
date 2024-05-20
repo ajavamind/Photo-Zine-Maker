@@ -96,7 +96,7 @@
  "textImagePrefix": "text",
  "textFilenamepath": "",
  }, {
- "name": "2",
+ "name": "1",
  "rotation": 0,
  "contentPrefix": "page",
  "imageFileType": "png",
@@ -108,7 +108,7 @@
  "textFilenamepath": "",
  },
  {
- "name": "1",
+ "name": "2",
  "rotation": 0,
  "contentPrefix": "page",
  "imageFileType": "png",

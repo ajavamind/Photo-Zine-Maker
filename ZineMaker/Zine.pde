@@ -40,8 +40,7 @@ class Zine {
   int FONT_SIZE = 48;
   int MID_FONT_SIZE = 72;
   int COVER_FONT_SIZE = 96;
-  //int fontColor = 0xFF000000; // black
-  int fontColor = 0xFF00FFFF; //
+  int fontColor = 0xFF000000; // black
 
   PFont font;
   // The font must be located in the sketch's

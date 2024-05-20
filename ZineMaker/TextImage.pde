@@ -17,14 +17,17 @@ PImage generateTextImage(String contentFolder, Zine zine, Sheet sheet, Page page
     println("path="+ path);
     lines = loadStrings(path);
   } else {
-    lines = new String[1];
-    lines[0] = altText;
+    //lines = new String[1];
+    //lines[0] = altText;
+    lines = null;
   }
   if (mode !=null && mode.equals("sbs")) {
     img = drawStereoText(lines, zine, page, zine.MID_FONT_SIZE, zine.fontColor);
   } else {
-    img = drawLeftText(lines, zine, page, zine.MID_FONT_SIZE, zine.fontColor);
+    //img = drawLeftText(lines, zine, page, zine.MID_FONT_SIZE, zine.fontColor);
+    img = drawText(lines, zine, page, zine.MID_FONT_SIZE, zine.fontColor);
   }
+  if (img == null) return null;
   img.save(getZineFolderPath() + contentFolder + File.separator + imagePrefix +".png");
   return img;
 }
@@ -143,27 +146,30 @@ PImage drawLeftText(String[] lines, Zine zine, Page page, int fontSize, color c)
 // Draw text image
 // make image transparent
 // return PImage
-PImage drawText( String[] lines, int w, int h, int fontSize, color c) {
+PImage drawText( String[] lines, Zine zine, Page page, int fontSize, color c) {
   int numDisplayLines = 20; // maximum per page
+  int w = page.pageWidthPx;
+  int h = page.pageHeightPx;
   int hCurrent = 0;  // current line height
-  float wordSpacing = 5;
+  float wordSpacing = 0;
 
   PGraphics pg;
   PImage img;
   String[] words;
+  if (lines == null) return null;
   pg = createGraphics(w, h);
   pg.beginDraw();
   pg.background(#00010101);  // transparent background
   pg.textSize(fontSize);
-  wordSpacing = pg.textWidth("M ");
+  wordSpacing = pg.textWidth(" ");
 
   int count = 0;
   for (int i = 0; i < lines.length; i++) {
     if (count < numDisplayLines) {
       String line = lines[i];
       line = line.replace("#", "");
-      float x = (w/2 - pg.textWidth(line))/2;
-      x = x - 3* round(wordSpacing);
+      float x = w/2 - pg.textWidth(line)/2;
+      x = x - round(wordSpacing);
       float y = hCurrent + count * fontSize;
 
       words = lines[i].split(" ");
@@ -172,10 +178,10 @@ PImage drawText( String[] lines, int w, int h, int fontSize, color c) {
         if (words[j].startsWith("#")) {
           word = words[j].substring(1);
           // color change
-          pg.fill(c);
+          pg.fill(#FFFF0000);
         } else {
           // color change
-          pg.fill(#FFFF0000);
+          pg.fill(c);
         }
 
         pg.text(word, x, y);
