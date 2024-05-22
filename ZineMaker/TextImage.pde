@@ -17,8 +17,6 @@ PImage generateTextImage(String contentFolder, Zine zine, Sheet sheet, Page page
     println("path="+ path);
     lines = loadStrings(path);
   } else {
-    //lines = new String[1];
-    //lines[0] = altText;
     lines = null;
   }
   if (mode !=null && mode.equals("sbs")) {
